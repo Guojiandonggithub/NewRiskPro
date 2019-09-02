@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/pic"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:padding="1px"
+        android:background="@drawable/pic_bg"
+        tools:src="@tools:sample/backgrounds/scenic"
+        />
+</android.support.v7.widget.LinearLayoutCompat>

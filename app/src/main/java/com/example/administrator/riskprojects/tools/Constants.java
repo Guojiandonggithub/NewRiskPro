@@ -26,11 +26,11 @@ public interface Constants {
 	String ISUPERVISION = "1";
 
 	// 链接地址ip (用来测试网络是否连通)
-	String INTENT_IP = "192.168.7.4";
-	String INTENT_PORT = "8191";
+	String INTENT_IP = "124.163.206.251";
+	String INTENT_PORT = "8100";
 
 	// 服务器地址
-	//String MAIN_ENGINE = "http://124.163.206.251:8100/";
+	String MAIN_ENGINE = "http://124.163.206.251:8100/";
 	//String MAIN_ENGINE = "http://1.63.57.10:18370/";
 	//String MAIN_ENGINE = "http://1.63.57.10:18470/";
 	//String MAIN_ENGINE = "http://1.63.57.10:18570/";
@@ -43,7 +43,7 @@ public interface Constants {
 	//String MAIN_ENGINE = "http://192.168.4.50:8070/";
 	//String MAIN_ENGINE = "http://192.168.5.3:8070/";
 	//String MAIN_ENGINE = "http://192.168.5.50:8070/";
-	String MAIN_ENGINE = "http://192.168.7.4:8070/";
+//	String MAIN_ENGINE = "http://192.168.7.4:8070/";
 	//String MAIN_ENGINE = "http://192.168.7.59:8070/";
 	//String MAIN_ENGINE = "http://192.168.9.8:8070/";
 	//String MAIN_ENGINE = "http://192.168.12.5:8070/";

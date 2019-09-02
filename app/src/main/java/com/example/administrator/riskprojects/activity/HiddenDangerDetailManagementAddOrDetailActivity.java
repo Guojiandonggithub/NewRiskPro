@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.administrator.riskprojects.Adpter.ListBigPicAdapter;
 import com.example.administrator.riskprojects.Adpter.PicAdapter;
 import com.example.administrator.riskprojects.BaseActivity;
 import com.example.administrator.riskprojects.R;
@@ -21,6 +23,8 @@ import com.example.administrator.riskprojects.net.BaseJsonRes;
 import com.example.administrator.riskprojects.net.NetClient;
 import com.example.administrator.riskprojects.tools.Constants;
 import com.example.administrator.riskprojects.tools.Utils;
+import com.example.administrator.riskprojects.util.DensityUtil;
+import com.example.administrator.riskprojects.view.MyDecoration;
 import com.juns.health.net.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
@@ -76,7 +80,7 @@ public class HiddenDangerDetailManagementAddOrDetailActivity extends BaseActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hidden_danger_detail_management);
+        setContentView(R.layout.activity_hidden_danger_detail_management_new);
         netClient = new NetClient(HiddenDangerDetailManagementAddOrDetailActivity.this);
         initView();
         setView();
@@ -147,14 +151,18 @@ public class HiddenDangerDetailManagementAddOrDetailActivity extends BaseActivit
         tvMeasure = findViewById(R.id.tv_measure);
         tvCapital = findViewById(R.id.tv_capital);
         tvTheNumberOfProcessing = findViewById(R.id.tv_the_number_of_processing);
-        tvToCarryOutThePeople = findViewById(R.id.tv_to_carry_out_the_people);
+//        tvToCarryOutThePeople = findViewById(R.id.tv_to_carry_out_the_people);
         tvDepartment = findViewById(R.id.tv_department);
         tvTrackingUnit = findViewById(R.id.tv_tracking_unit);
         tvTrackPeople = findViewById(R.id.tv_track_people);
         tvAcceptanceOfThePeople = findViewById(R.id.tv_acceptance_of_the_people);
         tvAcceptanceOfTheResults = findViewById(R.id.tv_acceptance_of_the_results);
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.addItemDecoration(new MyDecoration(
+                this
+                , MyDecoration.HORIZONTAL_LIST, R.color.tranparent, DensityUtil.dip2px(this
+                ,8)));
     }
 
     private void initdata() {
@@ -178,58 +186,61 @@ public class HiddenDangerDetailManagementAddOrDetailActivity extends BaseActivit
                     hiddenrecordjson = data;
                     record = JSONArray.parseObject(data, HiddenDangerRecord.class);
                     */
-                    tvHiddenUnits.setText(record.getTeamGroupName().trim());
-                    String findTimeStr = record.getFindTime();
-                    String findTime = findTimeStr.substring(0,10);
-                    tvTimeOrOrder.setText(findTime + "/" + record.getClassName());
-                    tvHiddenContent.setText(record.getContent());
-                    tvHiddenDangerBelongs.setText(record.getHiddenBelong());
-                    tvProfessional.setText(record.getSname());
-                    tvArea.setText(record.getAreaName());
-                    tvClasses.setText(record.getJbName());
-                    ivStatus.setImageResource(getImageResourceByFlag(record.getFlag(), record.getOutTimeFlag()));
-                    String isuper = record.getIsupervision();
-                    String guapai = "未挂牌";
-                    if (TextUtils.isEmpty(isuper) || TextUtils.equals(isuper, "0")) {
-                        isuper = "未挂牌";
-                    } else {
-                        isuper = "已挂牌";
-                        guapai = "已挂牌";
-                    }
-                    String ishandle = record.getIshandle();
-                    if(TextUtils.isEmpty(ishandle)||"0".equals(ishandle)){
-                        ishandle = "未处理";
-                    }else{
-                        ishandle = "已处理";
-                    }
-                    String recheckResult = record.getRecheckResult();
-                    if(TextUtils.isEmpty(recheckResult)){
-                        recheckResult = "";
-                    }else if("0".equals(recheckResult)){
-                        recheckResult = "未验收";
-                    }else{
-                        recheckResult = "已验收";
-                    }
-                    tvDiscoveryTime.setText(record.getFindTime());
-                    tvOversee.setText(isuper);
-                    tvIsHang.setText(guapai);
-                    String status = getStatusByFlag(record.getFlag(),record.getOutTimeFlag());
-                    tvStatus.setText(status);
-                    tvIsHandle.setText(ishandle);
-                    tvHiddenDangerLogger.setText(record.getRealName());
-                    tvFinishTime.setText(record.getFixTime());
-                    tvPrincipal.setText(record.getThreeFixRealName());
-                    tvMeasure.setText(record.getMeasure());
-                    tvCapital.setText(record.getMoney());
-                    tvTheNumberOfProcessing.setText(record.getPersonNum());
-                    //tvToCarryOutThePeople.setText(record.getPracticablePerson());
-                    tvDepartment.setText(record.getTeamName());
-                    tvCheckTheContent.setText(record.getHiddenCheckContent());
-                    tvTrackingUnit.setText(record.getFollingTeamName());
-                    tvTrackPeople.setText(record.getFollingPersonName());
-                    tvAcceptanceOfThePeople.setText(record.getRecheckPersonName());
-                    tvAcceptanceOfTheResults.setText(recheckResult);
-                    getPicList(record.getImageGroup());
+        tvHiddenUnits.setText(record.getTeamGroupName().trim());
+        String findTimeStr = record.getFindTime();
+        String findTime = findTimeStr.substring(0, 10);
+        tvTimeOrOrder.setText(findTimeStr);
+        ((TextView) findViewById(R.id.time)).setText(record.getClassName().replace("点班", ""));
+        tvHiddenContent.setText(record.getContent());
+        tvHiddenDangerBelongs.setText(record.getHiddenBelong());
+        tvProfessional.setText(record.getSname()+"专业");
+        tvProfessional.setVisibility(View.VISIBLE);
+        tvArea.setText(record.getAreaName());
+        tvClasses.setText(record.getJbName()+"级");
+        tvClasses.setVisibility(View.VISIBLE);
+        ivStatus.setImageResource(getImageResourceByFlag(record.getFlag(), record.getOutTimeFlag()));
+        String isuper = record.getIsupervision();
+        String guapai = "未挂牌";
+        if (TextUtils.isEmpty(isuper) || TextUtils.equals(isuper, "0")) {
+            isuper = "未挂牌";
+        } else {
+            isuper = "已挂牌";
+            guapai = "已挂牌";
+        }
+        String ishandle = record.getIshandle();
+        if (TextUtils.isEmpty(ishandle) || "0".equals(ishandle)) {
+            ishandle = "未处理";
+        } else {
+            ishandle = "已处理";
+        }
+        String recheckResult = record.getRecheckResult();
+        if (TextUtils.isEmpty(recheckResult)) {
+            recheckResult = "";
+        } else if ("0".equals(recheckResult)) {
+            recheckResult = "未验收";
+        } else {
+            recheckResult = "已验收";
+        }
+        tvDiscoveryTime.setText(record.getFindTime());
+        tvOversee.setText(isuper);
+        tvIsHang.setText(guapai);
+        String status = getStatusByFlag(record.getFlag(), record.getOutTimeFlag());
+        tvStatus.setText(status);
+        tvIsHandle.setText(ishandle);
+        tvHiddenDangerLogger.setText(record.getRealName());
+        tvFinishTime.setText(record.getFixTime());
+        tvPrincipal.setText(record.getThreeFixRealName());
+        tvMeasure.setText(record.getMeasure());
+        tvCapital.setText(record.getMoney());
+        tvTheNumberOfProcessing.setText(record.getPersonNum());
+        //tvToCarryOutThePeople.setText(record.getPracticablePerson());
+        tvDepartment.setText(record.getTeamName());
+        tvCheckTheContent.setText(record.getHiddenCheckContent());
+        tvTrackingUnit.setText(record.getFollingTeamName());
+        tvTrackPeople.setText(record.getFollingPersonName());
+        tvAcceptanceOfThePeople.setText(record.getRecheckPersonName());
+        tvAcceptanceOfTheResults.setText(recheckResult);
+        getPicList(record.getImageGroup());
                 /*}
 
             }
@@ -315,9 +326,9 @@ public class HiddenDangerDetailManagementAddOrDetailActivity extends BaseActivit
     private void getPicList(String imageGroup) {
         Log.i(TAG, "imageGroup: 图片imageGroup=========" + imageGroup);
         try {
-            if(!TextUtils.isEmpty(imageGroup)){
+            if (!TextUtils.isEmpty(imageGroup)) {
                 RequestParams params = new RequestParams();
-                params.put("imageGroup",imageGroup);
+                params.put("imageGroup", imageGroup);
                 netClient.post(Data.getInstance().getIp() + Constants.GET_PICLIST, params, new BaseJsonRes() {
 
                     @Override
@@ -325,13 +336,13 @@ public class HiddenDangerDetailManagementAddOrDetailActivity extends BaseActivit
                         Log.i(TAG, "查询图片组返回数据：" + data);
                         if (!TextUtils.isEmpty(data)) {
                             JSONArray jsonArray = JSONArray.parseArray(data);
-                            List<String> paths =new ArrayList<>();
-                            for(int i=0;i<jsonArray.size();i++){
+                            List<String> paths = new ArrayList<>();
+                            for (int i = 0; i < jsonArray.size(); i++) {
                                 JSONObject job = jsonArray.getJSONObject(i); // 遍历 jsonarray 数组，把每一个对象转成 json 对象
-                                paths.add(Constants.MAIN_ENGINE+"file/"+job.get("imagePath"));
+                                paths.add(Constants.MAIN_ENGINE + "file/" + job.get("imagePath"));
                             }
-                            Log.e(TAG, "paths================: "+paths);
-                            recyclerView.setAdapter(new PicAdapter(paths));
+                            Log.e(TAG, "paths================: " + paths);
+                            recyclerView.setAdapter(new ListBigPicAdapter(paths));
                         }
                     }
 
@@ -342,7 +353,7 @@ public class HiddenDangerDetailManagementAddOrDetailActivity extends BaseActivit
                     }
                 });
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             Utils.showShortToast(HiddenDangerDetailManagementAddOrDetailActivity.this, e.toString());
         }
     }

@@ -134,7 +134,7 @@ public class MainActivity extends FragmentActivity {
         imagebuttons[2] = (ImageView) findViewById(R.id.iv_analysis);
         imagebuttons[3] = (ImageView) findViewById(R.id.ib_weixin);
         imagebuttons[4] = (ImageView) findViewById(R.id.ib_profile);
-        txt_title_right.setVisibility(View.VISIBLE);
+        txt_title_right.setVisibility(View.GONE);
         txt_title_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,7 +170,7 @@ public class MainActivity extends FragmentActivity {
                     homefragment.refresh();
                 }
                 txt_title.setText(R.string.home);
-                txt_title_right.setVisibility(View.VISIBLE);
+                txt_title_right.setVisibility(View.GONE);
                 img_left.setVisibility(View.GONE);
                 img_right.setVisibility(View.GONE);
                 break;
@@ -182,6 +182,7 @@ public class MainActivity extends FragmentActivity {
                 img_right.setVisibility(View.GONE);
                 break;
             case R.id.analysis:
+            case R.id.iv_analysis:
                 index = 2;
                 txt_title.setText(manageFragment.getTitle());
                 txt_title_right.setVisibility(View.GONE);

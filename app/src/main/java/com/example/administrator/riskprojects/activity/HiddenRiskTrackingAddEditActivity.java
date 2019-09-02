@@ -109,7 +109,8 @@ public class HiddenRiskTrackingAddEditActivity extends BaseActivity {
             public void onMySuccess(String data) {
                 Log.i(TAG, "添加跟踪记录返回数据：" + data);
                 if (!TextUtils.isEmpty(data)) {
-                    Intent intent = new Intent(HiddenRiskTrackingAddEditActivity.this, HiddenDangeTrackingDetailListActivity.class);
+                    Intent intent = new Intent(HiddenRiskTrackingAddEditActivity.this,
+                            HiddenDangeTrackingDetailListActivity.class);
                     intent.putExtra("threeFixId", hiddenFollingRecord.getThreeFixId());
                     Utils.showShortToast(HiddenRiskTrackingAddEditActivity.this, "操作成功!");
                     startActivity(intent);

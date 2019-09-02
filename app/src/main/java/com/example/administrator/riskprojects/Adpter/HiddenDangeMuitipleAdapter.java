@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,7 +29,9 @@ import com.example.administrator.riskprojects.net.NetClient;
 import com.example.administrator.riskprojects.tools.Constants;
 import com.example.administrator.riskprojects.tools.UserUtils;
 import com.example.administrator.riskprojects.tools.Utils;
+import com.example.administrator.riskprojects.util.DensityUtil;
 import com.example.administrator.riskprojects.view.MyAlertDialog;
+import com.example.administrator.riskprojects.view.MyDecoration;
 import com.juns.health.net.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
@@ -62,28 +65,41 @@ public class HiddenDangeMuitipleAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hidden_danger_management, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rist_new_detail, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        ((ViewHolder) holder).tvHiddenContent.setText(threeFixList.get(position).getContent());
-        ((ViewHolder) holder).tvArea.setText(threeFixList.get(position).getAreaName());
-        ((ViewHolder) holder).tvSpecialty.setText(threeFixList.get(position).getSname());
-        ((ViewHolder) holder).tvTimeOrOrder.setText(threeFixList.get(position).getClassName());
-        ((ViewHolder) holder).tvCategory.setText(threeFixList.get(position).getJbName());
-        String isuper = threeFixList.get(position).getIsupervision();
-        if (TextUtils.isEmpty(isuper) || TextUtils.equals(isuper, "0")) {
-            isuper = "未挂牌";
-        } else {
-            isuper = "已挂牌";
-        }
-        ((ViewHolder) holder).tvSupervise.setText(isuper);
+        String findTimeStr = threeFixList.get(position).getFindTime();
+        String findTime = findTimeStr.substring(0, 10);
+        ((ViewHolder) holder).name.setText(threeFixList.get(position).getTeamGroupName().trim());
+        ((ViewHolder) holder).time.setText(threeFixList.get(position).getClassName().replace("点班", ""));
+        ((ViewHolder) holder).date.setText(findTime);
+        ((ViewHolder) holder).content.setText(threeFixList.get(position).getContent());
+//        ((ViewHolder) holder).pics.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
+//        ((ViewHolder) holder).pics.setAdapter(new ListPicAdapter(recordList.get(position).getPicList()));
+//        ((ViewHolder) holder).pics.addItemDecoration(new MyDecoration(
+//                holder.itemView.getContext()
+//                , MyDecoration.HORIZONTAL_LIST, R.color.tranparent, DensityUtil.dip2px(holder.itemView.getContext(),8)));
+
+
+//        ((ViewHolder) holder).tvHiddenContent.setText(threeFixList.get(position).getContent());
+//        ((ViewHolder) holder).tvArea.setText(threeFixList.get(position).getAreaName());
+//        ((ViewHolder) holder).tvSpecialty.setText(threeFixList.get(position).getSname());
+//        ((ViewHolder) holder).tvTimeOrOrder.setText(threeFixList.get(position).getClassName());
+//        ((ViewHolder) holder).tvCategory.setText(threeFixList.get(position).getJbName());
+//        String isuper = threeFixList.get(position).getIsupervision();
+//        if (TextUtils.isEmpty(isuper) || TextUtils.equals(isuper, "0")) {
+//            isuper = "未挂牌";
+//        } else {
+//            isuper = "已挂牌";
+//        }
+//        ((ViewHolder) holder).tvSupervise.setText(isuper);
         switch (flag) {
             case FLAG_OVERDUE:
-                ((ViewHolder) holder).button.setText("重新下达");
-                ((ViewHolder) holder).button.setOnClickListener(new View.OnClickListener() {
+                ((ViewHolder) holder).status.setText("重新下达");
+                ((ViewHolder) holder).status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         final ThreeFix threeFix = threeFixList.get(position);
@@ -128,7 +144,7 @@ public class HiddenDangeMuitipleAdapter extends RecyclerView.Adapter {
             case FLAG_REALEASE:
                 String userRole = UserUtils.getUserRoleids(context);
                 if("1".equals(userRole)){
-                    ((ViewHolder) holder).button.setText("五定");
+                    ((ViewHolder) holder).status.setText("五定");
                     ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -150,7 +166,7 @@ public class HiddenDangeMuitipleAdapter extends RecyclerView.Adapter {
                         }
                     });
                 }else{
-                    ((ViewHolder) holder).button.setVisibility(View.GONE);
+                    ((ViewHolder) holder).status.setVisibility(View.GONE);
                 }
                 break;
 
@@ -159,7 +175,7 @@ public class HiddenDangeMuitipleAdapter extends RecyclerView.Adapter {
                 String userid = UserUtils.getUserID(context);
                 String employeeId = threeFixList.get(position).getRecheckPersonId();
                 if("1".equals(userRoles)||userid.equals(employeeId)){
-                    ((ViewHolder) holder).button.setText("验收");
+                    ((ViewHolder) holder).status.setText("验收");
                     ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -181,13 +197,13 @@ public class HiddenDangeMuitipleAdapter extends RecyclerView.Adapter {
                         }
                     });
                 }else{
-                    ((ViewHolder) holder).button.setVisibility(View.GONE);
+                    ((ViewHolder) holder).status.setVisibility(View.GONE);
                 }
                 break;
 
             case FLAG_RECTIFICATION:
-                ((ViewHolder) holder).button.setText("完成整改");
-                ((ViewHolder) holder).button.setOnClickListener(new View.OnClickListener() {
+                ((ViewHolder) holder).status.setText("完成整改");
+                ((ViewHolder) holder).status.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (itemClickListener != null) {
@@ -275,25 +291,24 @@ public class HiddenDangeMuitipleAdapter extends RecyclerView.Adapter {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvHiddenContent;
-        private TextView tvArea;
-        private TextView tvSpecialty;
-        private TextView tvTimeOrOrder;
-        private TextView tvCategory;
-        private TextView tvSupervise;
-        private TextView button;
-        private LinearLayoutCompat clickMore;
+        private TextView name;
+        private TextView time;
+        private TextView content;
+        private RecyclerView pics;
+        private LinearLayoutCompat llBottom;
+        private TextView date;
+        private TextView status;
+
 
         ViewHolder(View view) {
             super(view);
-            tvHiddenContent = view.findViewById(R.id.tv_hidden_content);
-            tvArea = view.findViewById(R.id.tv_area);
-            tvSpecialty = view.findViewById(R.id.tv_specialty);
-            tvTimeOrOrder = view.findViewById(R.id.tv_time_or_order);
-            tvCategory = view.findViewById(R.id.tv_category);
-            tvSupervise = view.findViewById(R.id.tv_supervise);
-            clickMore = view.findViewById(R.id.click_more);
-            button = view.findViewById(R.id.button);
+            name = view.findViewById(R.id.name);
+            time = view.findViewById(R.id.time);
+            content = view.findViewById(R.id.content);
+            pics = view.findViewById(R.id.pics);
+            llBottom = view.findViewById(R.id.ll_bottom);
+            date = view.findViewById(R.id.date);
+            status = view.findViewById(R.id.status);
         }
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.administrator.riskprojects.Adpter.ListBigPicAdapter;
+import com.example.administrator.riskprojects.Adpter.ListPicAdapter;
 import com.example.administrator.riskprojects.Adpter.PicAdapter;
 import com.example.administrator.riskprojects.BaseActivity;
 import com.example.administrator.riskprojects.R;
@@ -23,6 +26,8 @@ import com.example.administrator.riskprojects.net.NetClient;
 import com.example.administrator.riskprojects.tools.Constants;
 import com.example.administrator.riskprojects.tools.UserUtils;
 import com.example.administrator.riskprojects.tools.Utils;
+import com.example.administrator.riskprojects.util.DensityUtil;
+import com.example.administrator.riskprojects.view.MyDecoration;
 import com.juns.health.net.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
@@ -97,7 +102,7 @@ public class HiddenDangerReviewManagementActivity extends BaseActivity {
         mTvPrincipal = findViewById(R.id.tv_principal);
         mTvMeasure = findViewById(R.id.tv_measure);
         mTvCapital = findViewById(R.id.tv_capital);
-        mTvToCarryOutThePeople = findViewById(R.id.tv_to_carry_out_the_people);
+//        mTvToCarryOutThePeople = findViewById(R.id.tv_to_carry_out_the_people);
         mTvAcceptanceOfThePeople = findViewById(R.id.tv_acceptance_of_the_people);
         mTvAcceptanceOfTheResults = findViewById(R.id.tv_acceptance_of_the_results);
         mLlBottom = findViewById(R.id.ll_bottom);
@@ -107,7 +112,11 @@ public class HiddenDangerReviewManagementActivity extends BaseActivity {
         mTvHandler = findViewById(R.id.tv_the_number_of_processing);
         recyclerView = findViewById(R.id.recyclerView);
         mTvHiddenUnits = findViewById(R.id.tv_hidden_units);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.addItemDecoration(new MyDecoration(
+                this
+                , MyDecoration.HORIZONTAL_LIST, R.color.tranparent, DensityUtil.dip2px(this
+                ,8)));
     }
 
     private void setView() {
@@ -133,7 +142,9 @@ public class HiddenDangerReviewManagementActivity extends BaseActivity {
         mTvSpecialty.setText(threeFix.getSname());
         String findTimeStr = threeFix.getFindTime();
         String findTime = findTimeStr.substring(0,10);
-        mTvTimeOrOrder.setText(findTime+"/"+threeFix.getClassName());
+        mTvTimeOrOrder.setText(findTimeStr);
+        ((TextView) findViewById(R.id.time)).setText(threeFix.getClassName().replace("点班", ""));
+
         mTvCategory.setText(threeFix.getJbName());
         String isuper = threeFix.getIsupervision();
         if(TextUtils.isEmpty(isuper)||TextUtils.equals(isuper,"0")){
@@ -147,7 +158,7 @@ public class HiddenDangerReviewManagementActivity extends BaseActivity {
         mTvMeasure.setText(threeFix.getMeasure());
         mTvCapital.setText(threeFix.getMoney());
         mTvPrincipal.setText(threeFix.getRealName());
-        mTvToCarryOutThePeople.setText(threeFix.getPracticablePerson());
+//        mTvToCarryOutThePeople.setText(threeFix.getPracticablePerson());
         mTvAcceptanceOfThePeople.setText(threeFix.getRecheckPersonName());
         String result = threeFix.getRecheckResult();
         if(TextUtils.isEmpty(result)){
@@ -184,8 +195,8 @@ public class HiddenDangerReviewManagementActivity extends BaseActivity {
                                 JSONObject job = jsonArray.getJSONObject(i); // 遍历 jsonarray 数组，把每一个对象转成 json 对象
                                 paths.add(Constants.MAIN_ENGINE+"file/"+job.get("imagePath"));
                             }
-                            Log.e(TAG, "paths================: "+paths);
-                            recyclerView.setAdapter(new PicAdapter(paths));
+                            Log.e(TAG, "paths===============+paths");
+                            recyclerView.setAdapter(new ListBigPicAdapter(paths));
                         }
                     }
 

@@ -2,6 +2,7 @@ package com.example.administrator.riskprojects.Adpter;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ public class HiddenDangerStatisticsEachUnitAllAdapter extends RecyclerView.Adapt
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if(dtatisticsList.size()>0){
-            ((ViewHolder) holder).tvHiddenUnits.setText(dtatisticsList.get(position).getTeamGroupName().trim());
+            ((ViewHolder) holder).tvHiddenUnits.setText(TextUtils.isEmpty(dtatisticsList.get(position).getTeamGroupName())?"":dtatisticsList.get(position).getTeamGroupName().trim());
             ((ViewHolder) holder).tvNumberOfProcessed.setText(dtatisticsList.get(position).getMonth());
             ((ViewHolder) holder).tvNumberOfUntreated.setText(dtatisticsList.get(position).getTotal());
             ((ViewHolder) holder).tvNumberOdAll.setText(dtatisticsList.get(position).getTotalNum());

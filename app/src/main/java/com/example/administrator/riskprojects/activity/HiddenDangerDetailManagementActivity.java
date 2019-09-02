@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.administrator.riskprojects.Adpter.ListBigPicAdapter;
 import com.example.administrator.riskprojects.Adpter.PicAdapter;
 import com.example.administrator.riskprojects.BaseActivity;
 import com.example.administrator.riskprojects.R;
@@ -23,7 +25,9 @@ import com.example.administrator.riskprojects.net.NetClient;
 import com.example.administrator.riskprojects.tools.Constants;
 import com.example.administrator.riskprojects.tools.UserUtils;
 import com.example.administrator.riskprojects.tools.Utils;
+import com.example.administrator.riskprojects.util.DensityUtil;
 import com.example.administrator.riskprojects.view.MyAlertDialog;
+import com.example.administrator.riskprojects.view.MyDecoration;
 import com.juns.health.net.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
@@ -76,7 +80,7 @@ public class HiddenDangerDetailManagementActivity extends BaseActivity {
     private TextView tvTrackingUnit;
     private TextView tvTrackPeople;
     private TextView tvAcceptanceOfThePeople;
-    private LinearLayoutCompat llAcceptanceOfThePeople;
+    private LinearLayoutCompat llacceptance;
     private LinearLayoutCompat llAcceptanceOfTheResults;
     private TextView tvAcceptanceOfTheResults;
     private RecyclerView recyclerView;
@@ -85,7 +89,7 @@ public class HiddenDangerDetailManagementActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hidden_danger_detail_management);
+        setContentView(R.layout.activity_hidden_danger_detail_management_new);
         netClient = new NetClient(HiddenDangerDetailManagementActivity.this);
         initView();
         setView();
@@ -223,12 +227,15 @@ public class HiddenDangerDetailManagementActivity extends BaseActivity {
         tvTrackingUnit = findViewById(R.id.tv_tracking_unit);
         tvTrackPeople = findViewById(R.id.tv_track_people);
         tvAcceptanceOfThePeople = findViewById(R.id.tv_acceptance_of_the_people);
-        llAcceptanceOfThePeople = findViewById(R.id.ll_acceptance_of_the_people);
+        llacceptance = findViewById(R.id.ll_acceptance);
         tvAcceptanceOfTheResults = findViewById(R.id.tv_acceptance_of_the_results);
         llAcceptanceOfTheResults = findViewById(R.id.ll_acceptance_of_the_results);
         recyclerView = findViewById(R.id.recyclerView);
-
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.addItemDecoration(new MyDecoration(
+               this
+                , MyDecoration.HORIZONTAL_LIST, R.color.tranparent, DensityUtil.dip2px(this
+                ,8)));
     }
 
     private void initdata() {
@@ -270,12 +277,15 @@ public class HiddenDangerDetailManagementActivity extends BaseActivity {
         tvHiddenUnits.setText(record.getTeamGroupName().trim());
         String findTimeStr = record.getFindTime();
         String findTime = findTimeStr.substring(0,10);
-        tvTimeOrOrder.setText(findTime + "/" + record.getClassName());
+        tvTimeOrOrder.setText(findTimeStr);
+        ((TextView) findViewById(R.id.time)).setText(record.getClassName().replace("点班", ""));
         tvHiddenContent.setText(record.getContent());
         tvHiddenDangerBelongs.setText(record.getHiddenBelong());
-        tvProfessional.setText(record.getSname());
+        tvProfessional.setText(record.getSname()+"专业");
+        tvProfessional.setVisibility(View.VISIBLE);
         tvArea.setText(record.getAreaName());
-        tvClasses.setText(record.getJbName());
+        tvClasses.setText(record.getJbName()+"级");
+        tvClasses.setVisibility(View.VISIBLE);
         ivStatus.setImageResource(getImageResourceByFlag(record.getFlag(), record.getOutTimeFlag()));
         String isuper = record.getIsupervision();
         String guapai = "未挂牌";
@@ -322,7 +332,7 @@ public class HiddenDangerDetailManagementActivity extends BaseActivity {
             txtRight.setText("未上报");
         }
         if(record.getPicList()!=null){
-            recyclerView.setAdapter(new PicAdapter(record.getPicList()));
+            recyclerView.setAdapter(new ListBigPicAdapter(record.getPicList()));
         }else{
             getPicList(record.getImageGroup());
         }
@@ -384,16 +394,13 @@ public class HiddenDangerDetailManagementActivity extends BaseActivity {
         switch (flag) {
             case "0":
                 rectificationPlan.setVisibility(View.GONE);
-                llAcceptanceOfThePeople.setVisibility(View.GONE);
-                llAcceptanceOfTheResults.setVisibility(View.GONE);
+                llacceptance.setVisibility(View.GONE);
                 return "筛选";
             case "1":
-                llAcceptanceOfThePeople.setVisibility(View.GONE);
-                llAcceptanceOfTheResults.setVisibility(View.GONE);
+                llacceptance.setVisibility(View.GONE);
                 return "五定中";
             case "2":
-                llAcceptanceOfThePeople.setVisibility(View.GONE);
-                llAcceptanceOfTheResults.setVisibility(View.GONE);
+                llacceptance.setVisibility(View.GONE);
                 return "整改中";
             case "3":
                 return "验收中";

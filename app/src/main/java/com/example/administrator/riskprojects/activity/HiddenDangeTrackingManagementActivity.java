@@ -134,7 +134,9 @@ public class HiddenDangeTrackingManagementActivity extends BaseActivity {
         mTvSpecialty.setText(threeFix.getSname());
         String findTimeStr = threeFix.getFindTime();
         String findTime = findTimeStr.substring(0,10);
-        mTvTimeOrOrder.setText(findTime+"/"+threeFix.getClassName());
+        mTvTimeOrOrder.setText(findTimeStr);
+        ((TextView) findViewById(R.id.time)).setText(threeFix.getClassName().replace("点班", ""));
+
         mTvCategory.setText(threeFix.getGname());
         String isuper = threeFix.getIsupervision();
         if(TextUtils.isEmpty(isuper)||TextUtils.equals(isuper,"0")){

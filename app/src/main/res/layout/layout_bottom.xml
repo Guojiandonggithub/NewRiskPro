@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
+    android:layout_gravity="bottom"
     android:orientation="vertical">
 
     <!-- 普通底部导航 -->
@@ -11,7 +12,9 @@
         android:id="@+id/main_bottom"
         android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:layout_marginTop="9dp"
         android:background="#ffffff"
+        android:elevation="2dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -47,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ib_contact_list"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="4dp"
                     android:text="@string/home"
                     android:textColor="@color/colorGraylighter"
                     android:textSize="12sp" />
@@ -99,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ib_find"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="4dp"
                     android:text="@string/guapai"
                     android:textColor="@color/colorGraylighter"
                     android:textSize="12sp" />
@@ -135,13 +138,13 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/iv_analysis"
                     android:layout_width="wrap_content"
                     android:layout_height="23dp"
                     android:layout_centerHorizontal="true"
                     android:adjustViewBounds="true"
                     android:background="#ffffff"
                     android:focusable="false"
+                    android:visibility="invisible"
                     android:scaleType="centerInside"
                     android:src="@drawable/tab_mine" />
 
@@ -151,8 +154,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/iv_analysis"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="3dp"
-                    android:text="@string/record_tracking"
+                    android:layout_marginTop="4dp"
+                    android:text="记录"
                     android:textColor="@color/colorGraylighter"
                     android:textSize="@dimen/small_ts" />
             </android.support.v7.widget.LinearLayoutCompat>
@@ -189,7 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ib_weixin"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="4dp"
                     android:text="@string/statistical_analysis"
                     android:textColor="@color/colorGraylighter"
                     android:textSize="@dimen/small_ts" />
@@ -238,11 +241,24 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ib_profile"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/me"
                 android:textColor="@color/colorGraylighter"
                 android:textSize="@dimen/small_ts" />
             </android.support.v7.widget.LinearLayoutCompat>
         </RelativeLayout>
     </LinearLayout>
-</LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_analysis"
+        android:layout_width="42.6dp"
+        android:layout_height="42.6dp"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+        android:focusable="false"
+        android:elevation="2dp"
+        android:onClick="onTabClicked"
+        android:scaleType="centerInside"
+        android:src="@mipmap/add_center" />
+</FrameLayout>

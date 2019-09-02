@@ -28,28 +28,35 @@ public class HiddenDangeTrackingAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hidden_danger_tracking_management, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rist_new_detail, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if(threeFixList.size()>0){
-            ((ViewHolder) holder).tvHiddenContent.setText(threeFixList.get(position).getContent());
-            ((ViewHolder) holder).tvArea.setText(threeFixList.get(position).getAreaName());
-            ((ViewHolder) holder).tvSpecialty.setText(threeFixList.get(position).getSname());
             String findTimeStr = threeFixList.get(position).getFindTime();
-            String findTime = findTimeStr.substring(0,10);
-            ((ViewHolder) holder).tvTimeOrOrder.setText(findTime+"/"+threeFixList.get(position).getClassName());
-            ((ViewHolder) holder).tvCategory.setText(threeFixList.get(position).getJbName());
-            String isuper = threeFixList.get(position).getIsupervision();
-            if(TextUtils.isEmpty(isuper)||TextUtils.equals(isuper,"0")){
-                isuper = "未挂牌";
-            }else{
-                isuper = "已挂牌";
-            }
-
-            ((ViewHolder) holder).tvSupervise.setText(isuper);
+            String findTime = findTimeStr.substring(0, 10);
+            ((ViewHolder) holder).name.setText(threeFixList.get(position).getTeamGroupName().trim());
+            ((ViewHolder) holder).time.setText(threeFixList.get(position).getClassName().replace("点班", ""));
+            ((ViewHolder) holder).date.setText(findTime);
+            ((ViewHolder) holder).content.setText(threeFixList.get(position).getContent());
+            ((ViewHolder) holder).status.setText("跟踪状态未定");
+//            ((ViewHolder) holder).tvHiddenContent.setText(threeFixList.get(position).getContent());
+//            ((ViewHolder) holder).tvArea.setText(threeFixList.get(position).getAreaName());
+//            ((ViewHolder) holder).tvSpecialty.setText(threeFixList.get(position).getSname());
+//            String findTimeStr = threeFixList.get(position).getFindTime();
+//            String findTime = findTimeStr.substring(0,10);
+//            ((ViewHolder) holder).tvTimeOrOrder.setText(findTime+"/"+threeFixList.get(position).getClassName());
+//            ((ViewHolder) holder).tvCategory.setText(threeFixList.get(position).getJbName());
+//            String isuper = threeFixList.get(position).getIsupervision();
+//            if(TextUtils.isEmpty(isuper)||TextUtils.equals(isuper,"0")){
+//                isuper = "未挂牌";
+//            }else{
+//                isuper = "已挂牌";
+//            }
+//
+//            ((ViewHolder) holder).tvSupervise.setText(isuper);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -75,21 +82,24 @@ public class HiddenDangeTrackingAdapter extends RecyclerView.Adapter {
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvHiddenContent;
-        private TextView tvArea;
-        private TextView tvSpecialty;
-        private TextView tvTimeOrOrder;
-        private TextView tvCategory;
-        private TextView tvSupervise;
+        private TextView name;
+        private TextView time;
+        private TextView content;
+        private RecyclerView pics;
+        private LinearLayoutCompat llBottom;
+        private TextView date;
+        private TextView status;
+
 
         ViewHolder(View view) {
             super(view);
-            tvHiddenContent =  view.findViewById(R.id.tv_hidden_content);
-            tvArea =  view.findViewById(R.id.tv_area);
-            tvSpecialty =  view.findViewById(R.id.tv_specialty);
-            tvTimeOrOrder =  view.findViewById(R.id.tv_time_or_order);
-            tvCategory =  view.findViewById(R.id.tv_category);
-            tvSupervise =  view.findViewById(R.id.tv_supervise);
+            name = view.findViewById(R.id.name);
+            time = view.findViewById(R.id.time);
+            content = view.findViewById(R.id.content);
+            pics = view.findViewById(R.id.pics);
+            llBottom = view.findViewById(R.id.ll_bottom);
+            date = view.findViewById(R.id.date);
+            status = view.findViewById(R.id.status);
         }
     }
 }

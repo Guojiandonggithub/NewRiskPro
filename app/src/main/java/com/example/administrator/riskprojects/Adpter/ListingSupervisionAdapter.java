@@ -3,6 +3,7 @@ package com.example.administrator.riskprojects.Adpter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.example.administrator.riskprojects.R;
 import com.example.administrator.riskprojects.activity.HiddenDangerDetailManagementAddOrDetailActivity;
 import com.example.administrator.riskprojects.bean.HiddenDangerRecord;
+import com.example.administrator.riskprojects.util.DensityUtil;
+import com.example.administrator.riskprojects.view.MyDecoration;
 
 import java.util.List;
 
@@ -26,24 +29,22 @@ public class ListingSupervisionAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listing_supervision, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rist_new_detail, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
-        ((ViewHolder) holder).mTvHiddenUnits.setText(recordList.get(position).getTeamGroupName().trim());
-        String findTimeStr = recordList.get(position).getFindTime();
-        String findTime = findTimeStr.substring(0,10);
-        ((ViewHolder) holder).mTvTimeOrOrder.setText(findTime+"/"+recordList.get(position).getClassName());
-        ((ViewHolder) holder).mIvStatus.setImageResource(getImageResourceByFlag(recordList.get(position).getFlag(),recordList.get(position).getOutTimeFlag()));
-        ((ViewHolder) holder).mTvHiddenContent.setText(recordList.get(position).getContent());
-        ((ViewHolder) holder).mTvHiddenDangerBelongs.setText(recordList.get(position).getHiddenBelong());
-        ((ViewHolder) holder).mTvHiddenUnits.setSelected(true);
-        ((ViewHolder) holder).mTvTimeOrOrder.setSelected(true);
-        ((ViewHolder) holder).mTvHiddenContent.setSelected(true);
-        ((ViewHolder) holder).mTvHiddenDangerBelongs.setSelected(true);
+        ((ViewHolder) holder).name.setText(recordList.get(position).getTeamGroupName().trim());
+        ((ViewHolder) holder).time.setText(recordList.get(position).getClassName().replace("点班", ""));
+        ((ViewHolder) holder).content.setText(recordList.get(position).getContent());
+        ((ViewHolder) holder).llBottom.setVisibility(View.GONE);
+        ((ViewHolder) holder).pics.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        ((ViewHolder) holder).pics.setAdapter(new ListPicAdapter(recordList.get(position).getPicList()));
+        ((ViewHolder) holder).pics.addItemDecoration(new MyDecoration(
+                holder.itemView.getContext()
+        , MyDecoration.HORIZONTAL_LIST, R.color.tranparent, DensityUtil.dip2px(holder.itemView.getContext(),8)));
         ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,29 +68,33 @@ public class ListingSupervisionAdapter extends RecyclerView.Adapter {
 
     private void initView(View view) {
 
+
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTvHiddenUnits;
-        private TextView mTvTimeOrOrder;
-        private TextView mTvHiddenContent;
-        private TextView mTvHiddenDangerBelongs;
-        private LinearLayoutCompat mClickMore;
-        private ImageView mIvStatus;
+        private TextView name;
+        private TextView time;
+        private TextView content;
+        private RecyclerView pics;
+        private LinearLayoutCompat llBottom;
+        private TextView date;
+        private TextView status;
+
 
         ViewHolder(View view) {
             super(view);
-            mTvHiddenUnits = view.findViewById(R.id.tv_hidden_units);
-            mTvTimeOrOrder = view.findViewById(R.id.tv_time_or_order);
-            mTvHiddenContent = view.findViewById(R.id.tv_hidden_content);
-            mTvHiddenDangerBelongs = view.findViewById(R.id.tv_hidden_danger_belongs);
-            mClickMore = view.findViewById(R.id.click_more);
-            mIvStatus = view.findViewById(R.id.iv_status);
+            name = view.findViewById(R.id.name);
+            time = view.findViewById(R.id.time);
+            content = view.findViewById(R.id.content);
+            pics = view.findViewById(R.id.pics);
+            llBottom = view.findViewById(R.id.ll_bottom);
+            date = view.findViewById(R.id.date);
+            status = view.findViewById(R.id.status);
         }
     }
 
-    private int getImageResourceByFlag(String flag,String outTimeFlag) {
-        if("1".equals(outTimeFlag)){
+    private int getImageResourceByFlag(String flag, String outTimeFlag) {
+        if ("1".equals(outTimeFlag)) {
             return R.mipmap.ic_status_overdue;
         }
         switch (flag) {

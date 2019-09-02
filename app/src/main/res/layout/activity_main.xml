@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.LinearLayoutCompat
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -21,13 +21,13 @@
             <FrameLayout
                 android:id="@+id/fragment_container"
                 android:layout_width="fill_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1">
-
+                android:layout_height="match_parent"
+                android:layout_marginBottom="54dp">
             </FrameLayout>
 
-            <include layout="@layout/layout_bottom" />
-        </android.support.v7.widget.LinearLayoutCompat>
+            <include layout="@layout/layout_bottom"
+                />
+        </FrameLayout>
 
         <android.support.v7.widget.LinearLayoutCompat
             android:id="@+id/ll_dialog"
@@ -54,9 +54,9 @@
                 android:background="@drawable/shape_rectangle_rounded"
                 android:orientation="vertical"
                 android:paddingTop="19dp"
+                android:paddingBottom="19dp"
                 android:visibility="gone"
-                tools:visibility="visible"
-                android:paddingBottom="19dp">
+                tools:visibility="visible">
 
                 <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/ll_manage_detail"
@@ -89,10 +89,10 @@
                     android:id="@+id/ll_manage_release"
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
-                    android:onClick="onMenuClicked"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:gravity="center_vertical"
+                    android:onClick="onMenuClicked"
                     android:orientation="horizontal"
                     android:paddingLeft="22dp">
 
@@ -117,9 +117,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
                     android:background="?attr/selectableItemBackground"
-                    android:onClick="onMenuClicked"
                     android:clickable="true"
                     android:gravity="center_vertical"
+                    android:onClick="onMenuClicked"
                     android:orientation="horizontal"
                     android:paddingLeft="22dp">
 
@@ -145,8 +145,8 @@
                     android:layout_height="32dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
-                    android:onClick="onMenuClicked"
                     android:gravity="center_vertical"
+                    android:onClick="onMenuClicked"
                     android:orientation="horizontal"
                     android:paddingLeft="22dp">
 
@@ -169,11 +169,11 @@
                 <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/ll_manage_overdue"
                     android:layout_width="match_parent"
-                    android:onClick="onMenuClicked"
                     android:layout_height="32dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:gravity="center_vertical"
+                    android:onClick="onMenuClicked"
                     android:orientation="horizontal"
                     android:paddingLeft="22dp">
 
@@ -196,11 +196,11 @@
                 <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/ll_manage_review"
                     android:layout_width="match_parent"
-                    android:onClick="onMenuClicked"
                     android:layout_height="32dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:gravity="center_vertical"
+                    android:onClick="onMenuClicked"
                     android:orientation="horizontal"
                     android:paddingLeft="22dp">
 
@@ -229,10 +229,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="6.67dp"
                 android:background="@drawable/shape_rectangle_rounded"
-                android:visibility="gone"
-                tools:visibility="visible"  android:orientation="vertical"
+                android:orientation="vertical"
                 android:paddingTop="19dp"
-                android:paddingBottom="19dp">
+                android:paddingBottom="19dp"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/ll_chart_01"
@@ -260,6 +261,7 @@
                         android:textSize="@dimen/normal_ts" />
 
                 </android.support.v7.widget.LinearLayoutCompat>
+
                 <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/ll_chart_02"
                     android:layout_width="match_parent"
@@ -286,6 +288,7 @@
                         android:textSize="@dimen/normal_ts" />
 
                 </android.support.v7.widget.LinearLayoutCompat>
+
                 <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/ll_chart_03"
                     android:layout_width="match_parent"
@@ -364,6 +367,7 @@
                         android:textSize="@dimen/normal_ts" />
 
                 </android.support.v7.widget.LinearLayoutCompat>
+
                 <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/ll_chart_06"
                     android:layout_width="match_parent"
@@ -390,6 +394,7 @@
                         android:textSize="@dimen/normal_ts" />
 
                 </android.support.v7.widget.LinearLayoutCompat>
+
                 <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/ll_chart_07"
                     android:layout_width="match_parent"
@@ -416,6 +421,7 @@
                         android:textSize="@dimen/normal_ts" />
 
                 </android.support.v7.widget.LinearLayoutCompat>
+
                 <android.support.v7.widget.LinearLayoutCompat
                     android:id="@+id/ll_chart_08"
                     android:layout_width="match_parent"

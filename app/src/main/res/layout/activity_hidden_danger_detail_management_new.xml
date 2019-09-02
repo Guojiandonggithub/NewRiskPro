@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bar_color"
     android:orientation="vertical"
-    tools:context=".activity.HiddenDangeTrackingManagementActivity">
+    tools:context=".activity.HiddenDangerDetailManagementActivity">
 
     <include layout="@layout/layout_title" />
 
@@ -17,10 +17,12 @@
         android:layout_weight="1"
         android:background="@color/white"
         android:clipToPadding="false">
+
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,6 +121,7 @@
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="6dp"
                             android:background="@drawable/shape_rectangle_solid_blue_cornor_3dp"
+                            android:layout_marginRight="8dp"
                             android:ellipsize="marquee"
                             android:gravity="center"
                             android:includeFontPadding="false"
@@ -128,13 +131,14 @@
                             android:text="D级"
                             android:textColor="@color/date_picker_text_dark"
                             android:textSize="11sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/tv_professional"
                             android:layout_width="wrap_content"
                             android:layout_height="16dp"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="6dp"
                             android:background="@drawable/shape_rectangle_solid_blue_cornor_3dp"
@@ -147,13 +151,14 @@
                             android:text="掘金专业"
                             android:textColor="@color/date_picker_text_dark"
                             android:textSize="11sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/tv_area"
                             android:layout_width="wrap_content"
                             android:layout_height="16dp"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="6dp"
                             android:background="@drawable/shape_rectangle_solid_blue_cornor_3dp"
@@ -638,110 +643,109 @@
                         android:id="@+id/ll_acceptance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_marginBottom="16dp"
+                        android:background="#d2d2d2" />
+
+                    <android.support.v7.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
                         <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:layout_marginBottom="16dp"
-                            android:background="#d2d2d2" />
+                            android:layout_width="6dp"
+                            android:layout_height="12dp"
+                            android:layout_marginStart="4dp"
+                            android:background="@color/blue1" />
 
-                        <android.support.v7.widget.LinearLayoutCompat
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <View
-                                android:layout_width="6dp"
-                                android:layout_height="12dp"
-                                android:layout_marginStart="4dp"
-                                android:background="@color/blue1" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:text="验收"
-                                android:textColor="@color/colorGray"
-                                android:textSize="@dimen/normal_ts" />
+                            android:layout_marginLeft="10dp"
+                            android:text="验收"
+                            android:textColor="@color/colorGray"
+                            android:textSize="@dimen/normal_ts" />
 
 
-                        </android.support.v7.widget.LinearLayoutCompat>
+                    </android.support.v7.widget.LinearLayoutCompat>
 
 
-                        <android.support.v7.widget.LinearLayoutCompat
-                            android:id="@+id/ll_acceptance_of_the_people"
-                            android:layout_width="match_parent"
-                            android:layout_height="24dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                    <android.support.v7.widget.LinearLayoutCompat
+                        android:id="@+id/ll_acceptance_of_the_people"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:gravity="center"
-                                android:text="&#12288;验收人："
-                                android:textColor="@color/colorGray"
-                                android:textSize="@dimen/normal_ts" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:gravity="center"
+                            android:text="&#12288;验收人："
+                            android:textColor="@color/colorGray"
+                            android:textSize="@dimen/normal_ts" />
 
-                            <TextView
-                                android:id="@+id/tv_acceptance_of_the_people"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:singleLine="true"
-                                android:text="安全检察部"
-                                android:textColor="@color/date_picker_text_dark"
-                                android:textSize="@dimen/normal_ts"
-                                android:textStyle="bold" />
-
-
-                        </android.support.v7.widget.LinearLayoutCompat>
+                        <TextView
+                            android:id="@+id/tv_acceptance_of_the_people"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="安全检察部"
+                            android:textColor="@color/date_picker_text_dark"
+                            android:textSize="@dimen/normal_ts"
+                            android:textStyle="bold" />
 
 
-                        <android.support.v7.widget.LinearLayoutCompat
-                            android:id="@+id/ll_acceptance_of_the_results"
-                            android:layout_width="match_parent"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="16dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:gravity="center"
-                                android:text="验收结果："
-                                android:textColor="@color/colorGray"
-                                android:textSize="@dimen/normal_ts" />
-
-                            <TextView
-                                android:id="@+id/tv_acceptance_of_the_results"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:singleLine="true"
-                                android:text="安全检察部"
-                                android:textColor="@color/date_picker_text_dark"
-                                android:textSize="@dimen/normal_ts"
-                                android:textStyle="bold" />
-
-                            <ImageView
-                                android:id="@+id/iv_status"
-                                android:layout_width="30dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="-30dp"
-                                android:adjustViewBounds="true"
-                                android:src="@mipmap/ic_recheck"
-                                android:visibility="gone" />
+                    </android.support.v7.widget.LinearLayoutCompat>
 
 
-                        </android.support.v7.widget.LinearLayoutCompat>
+                    <android.support.v7.widget.LinearLayoutCompat
+                        android:id="@+id/ll_acceptance_of_the_results"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:gravity="center"
+                            android:text="验收结果："
+                            android:textColor="@color/colorGray"
+                            android:textSize="@dimen/normal_ts" />
+
+                        <TextView
+                            android:id="@+id/tv_acceptance_of_the_results"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="安全检察部"
+                            android:textColor="@color/date_picker_text_dark"
+                            android:textSize="@dimen/normal_ts"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/iv_status"
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="-30dp"
+                            android:adjustViewBounds="true"
+                            android:src="@mipmap/ic_recheck"
+                            android:visibility="gone" />
+
+
+                    </android.support.v7.widget.LinearLayoutCompat>
                     </android.support.v7.widget.LinearLayoutCompat>
 
 
@@ -944,6 +948,7 @@
 
 
         </android.support.v7.widget.LinearLayoutCompat>
+
     </ScrollView>
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -960,17 +965,27 @@
             android:layout_height="match_parent"
             android:background="@drawable/shape_rectangle_solid_blue_stroke_gray"
             android:gravity="center"
-            android:text="@string/add_backspace"
+            android:text="@string/addguapai"
             android:textColor="@color/white"
             android:textSize="@dimen/middle_ts" />
 
         <TextView
-            android:id="@+id/tv_detail"
+            android:id="@+id/tv_delete"
             android:layout_width="120dp"
             android:layout_height="match_parent"
             android:background="@drawable/shape_rectangle_solid_blue_stroke_gray"
             android:gravity="center"
-            android:text="@string/detail_backspace"
+            android:text="@string/delete_backspace"
+            android:textColor="@color/white"
+            android:textSize="@dimen/middle_ts" />
+
+        <TextView
+            android:id="@+id/tv_change"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_rectangle_solid_blue_stroke_gray"
+            android:gravity="center"
+            android:text="@string/modification_backspace"
             android:textColor="@color/white"
             android:textSize="@dimen/middle_ts" />
     </android.support.v7.widget.LinearLayoutCompat>

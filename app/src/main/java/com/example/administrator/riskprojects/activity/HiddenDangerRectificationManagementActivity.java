@@ -3,6 +3,7 @@ package com.example.administrator.riskprojects.activity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.administrator.riskprojects.Adpter.ListBigPicAdapter;
 import com.example.administrator.riskprojects.Adpter.PicAdapter;
 import com.example.administrator.riskprojects.BaseActivity;
 import com.example.administrator.riskprojects.R;
@@ -23,7 +25,9 @@ import com.example.administrator.riskprojects.net.NetClient;
 import com.example.administrator.riskprojects.tools.Constants;
 import com.example.administrator.riskprojects.tools.UserUtils;
 import com.example.administrator.riskprojects.tools.Utils;
+import com.example.administrator.riskprojects.util.DensityUtil;
 import com.example.administrator.riskprojects.view.MyAlertDialog;
+import com.example.administrator.riskprojects.view.MyDecoration;
 import com.juns.health.net.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
@@ -97,14 +101,18 @@ public class HiddenDangerRectificationManagementActivity extends BaseActivity {
         mTvHiddenUnits = findViewById(R.id.tv_hidden_units);
         mTvPrincipal = findViewById(R.id.tv_principal);
         mTvTheNumberOfProcessing = findViewById(R.id.tv_the_number_of_processing);
-        mTvTheRectificationResults = findViewById(R.id.tv_the_rectification_results);
-        mTvToCarryOutThePeople = findViewById(R.id.tv_to_carry_out_the_people);
+//        mTvTheRectificationResults = findViewById(R.id.tv_the_rectification_results);
+//        mTvToCarryOutThePeople = findViewById(R.id.tv_to_carry_out_the_people);
         mTvTrackPeople = findViewById(R.id.tv_track_people);
         mTvTrackUnit = findViewById(R.id.tv_tracking_unit);
         mLlBottom = findViewById(R.id.ll_bottom);
         mTvOk = findViewById(R.id.tv_ok);
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.addItemDecoration(new MyDecoration(
+                this
+                , MyDecoration.HORIZONTAL_LIST, R.color.tranparent, DensityUtil.dip2px(this
+                ,8)));
         mTvOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +143,8 @@ public class HiddenDangerRectificationManagementActivity extends BaseActivity {
         mTvSpecialty.setText(threeFix.getSname());
         String findTimeStr = threeFix.getFindTime();
         String findTime = findTimeStr.substring(0,10);
-        mTvTimeOrOrder.setText(findTime+"/"+threeFix.getClassName());
+        mTvTimeOrOrder.setText(findTimeStr);
+        ((TextView) findViewById(R.id.time)).setText(threeFix.getClassName().replace("点班", ""));
         mTvCategory.setText(threeFix.getJbName());
         String isuper = threeFix.getIsupervision();
         if(TextUtils.isEmpty(isuper)||TextUtils.equals(isuper,"0")){
@@ -158,8 +167,8 @@ public class HiddenDangerRectificationManagementActivity extends BaseActivity {
         }else{
             rectifyResult = "未整改";
         }
-        mTvTheRectificationResults.setText(rectifyResult);
-        mTvToCarryOutThePeople.setText(threeFix.getPracticablePerson());
+//        mTvTheRectificationResults.setText(rectifyResult);
+//        mTvToCarryOutThePeople.setText(threeFix.getPracticablePerson());
         mTvTheNumberOfProcessing.setText(threeFix.getPersonNum());
         mTvTrackPeople.setText(threeFix.getFollingPersonName());
         mTvTrackUnit.setText(threeFix.getFollingTeamName());
@@ -217,7 +226,7 @@ public class HiddenDangerRectificationManagementActivity extends BaseActivity {
                                 paths.add(Constants.MAIN_ENGINE+"file/"+job.get("imagePath"));
                             }
                             Log.e(TAG, "paths================: "+paths);
-                            recyclerView.setAdapter(new PicAdapter(paths));
+                            recyclerView.setAdapter(new ListBigPicAdapter(paths));
                         }
                     }
 

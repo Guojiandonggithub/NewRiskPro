@@ -7,7 +7,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 23
         versionCode 49
-        versionName "1.49"
+        versionName "1.48"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -60,4 +60,6 @@ dependencies {
     implementation 'cn.jiguang.sdk:jcore:1.2.5'
     // 此处以JCore 1.2.5 版本为例。
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
+    implementation 'me.jessyan:autosize:1.1.2'
+    implementation 'com.google.android:flexbox:1.0.0'
 }

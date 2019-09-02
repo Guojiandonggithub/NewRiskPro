@@ -1,6 +1,7 @@
 package com.example.administrator.riskprojects.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HiddenDangerRecord implements Serializable{
@@ -864,7 +865,7 @@ public class HiddenDangerRecord implements Serializable{
 	}
 
 	public List<String> getPicList() {
-		return picList;
+		return picList==null?new ArrayList<String>() :picList;
 	}
 
 	public void setPicList(List<String> picList) {
