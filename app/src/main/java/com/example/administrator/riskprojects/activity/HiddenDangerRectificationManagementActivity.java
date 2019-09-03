@@ -1,5 +1,6 @@
 package com.example.administrator.riskprojects.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -130,6 +131,19 @@ public class HiddenDangerRectificationManagementActivity extends BaseActivity {
                             }
                         },"您确定完成整改吗？" );
                 myAlertDialog.show();
+            }
+        });
+
+        findViewById(R.id.btn_record).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HiddenDangerRectificationManagementActivity.this, HiddenDangeTrackingDetailListActivity.class);
+                intent.putExtra("threeFixId",threeFix.getId());
+                intent.putExtra("name",threeFix.getTeamGroupName());
+                intent.putExtra("content",threeFix.getContent());
+                intent.putExtra("tracker",threeFix.getFollingPersonName());
+                intent.putExtra("trackeram",threeFix.getFollingTeamName());
+                startActivity(intent);
             }
         });
     }

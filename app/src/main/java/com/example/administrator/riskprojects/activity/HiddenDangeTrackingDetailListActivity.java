@@ -72,7 +72,11 @@ public class HiddenDangeTrackingDetailListActivity extends BaseActivity implemen
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        adapter = new HomeHiddenDangerdetailListAdapter(hiddenFollingRecordList);
+
+        adapter = new HomeHiddenDangerdetailListAdapter(hiddenFollingRecordList
+        ,getIntent().getStringExtra("name"),getIntent().getStringExtra("content")
+                ,getIntent().getStringExtra("tracker")
+                ,getIntent().getStringExtra("trackeram"));
         mRecyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -183,6 +187,16 @@ public class HiddenDangeTrackingDetailListActivity extends BaseActivity implemen
             @Override
             public void onClick(View view) {
                 onRefresh();
+            }
+        });
+        mImgRight.setImageResource(R.mipmap.ic_add);
+        mImgRight.setVisibility(View.VISIBLE);
+        mImgRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HiddenDangeTrackingDetailListActivity.this, HiddenRiskTrackingAddEditActivity.class);
+                intent.putExtra("threeFixId",intent.getStringExtra("threeFixId"));
+                startActivity(intent);
             }
         });
     }

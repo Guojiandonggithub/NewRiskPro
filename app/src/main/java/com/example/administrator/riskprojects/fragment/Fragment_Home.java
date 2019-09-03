@@ -190,10 +190,11 @@ public class Fragment_Home extends Fragment {
             @Override
             public void onClick(View v) {
                 if(!mTvDeleteNum.getText().toString().equals("0")){
-                    Intent intent = new Intent(ctx, HomePageTotalDetailActivity.class);
-                    intent.putExtra("datatype","mLlDeleteNum");
-                    intent.putExtra("topname","已销号");
-                    startActivity(intent);
+                    ((MainActivity) getActivity()).onHomeCerter();
+//                    Intent intent = new Intent(ctx, HomePageTotalDetailActivity.class);
+//                    intent.putExtra("datatype","mLlDeleteNum");
+//                    intent.putExtra("topname","已销号");
+//                    startActivity(intent);
                 }
             }
         });

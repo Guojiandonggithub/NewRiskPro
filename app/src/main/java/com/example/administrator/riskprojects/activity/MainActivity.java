@@ -183,11 +183,12 @@ public class MainActivity extends FragmentActivity {
                 break;
             case R.id.analysis:
             case R.id.iv_analysis:
-                index = 2;
-                txt_title.setText(manageFragment.getTitle());
-                txt_title_right.setVisibility(View.GONE);
-                img_left.setVisibility(manageFragment.getAddVisible());
-                img_right.setVisibility(View.VISIBLE);
+                startActivity(new Intent(MainActivity.this, HiddenRiskRecordAddEditActivity.class));
+//                index = 2;
+//                txt_title.setText(manageFragment.getTitle());
+//                txt_title_right.setVisibility(View.GONE);
+//                img_left.setVisibility(manageFragment.getAddVisible());
+//                img_right.setVisibility(View.VISIBLE);
                 break;
             case R.id.re_weixin:
                 index = 3;
@@ -369,6 +370,35 @@ public class MainActivity extends FragmentActivity {
         statisticsfragment.setIdFlag(id, flag);
         onMenuClicked(findViewById(R.id.ll_chart_01));
     }
+
+
+    public void onHomeCerter() {
+         index = 2;
+         txt_title.setText(manageFragment.getTitle());
+         txt_title_right.setVisibility(View.GONE);
+         img_left.setVisibility(manageFragment.getAddVisible());
+         img_right.setVisibility(View.VISIBLE);
+        if (currentTabIndex != index) {
+            FragmentTransaction trx = getSupportFragmentManager()
+                    .beginTransaction();
+            trx.hide(fragments[currentTabIndex]);
+            System.out.println("fragments.isadd" + fragments[index].getClass().getSimpleName() + ":" + Boolean.toString(fragments[index].isAdded()));
+            if (!fragments[index].isAdded()) {
+                trx.add(R.id.fragment_container, fragments[index]);
+            }
+            System.out.println("index:" + Integer.toString(index));
+            System.out.println("getSimpleName:" + fragments[index].getClass().getSimpleName());
+            trx.show(fragments[index]).commit();
+        }
+        imagebuttons[currentTabIndex].setSelected(false);
+        // 把当前tab设为选中状态
+        imagebuttons[index].setSelected(true);
+        textviews[currentTabIndex].setTextColor(getResources().getColor(R.color.colorGraylighter));
+//        textviews[index].setTextColor(getResources().getColor(R.color.blue1));
+        currentTabIndex = index;
+    }
+
+
 
     private void receiver() {
         IntentFilter filter = new IntentFilter();

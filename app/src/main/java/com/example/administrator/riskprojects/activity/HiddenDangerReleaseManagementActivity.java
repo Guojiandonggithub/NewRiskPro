@@ -114,6 +114,20 @@ public class HiddenDangerReleaseManagementActivity extends BaseActivity {
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });
+
+        findViewById(R.id.btn_record).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HiddenDangerReleaseManagementActivity.this, HiddenDangeTrackingDetailListActivity.class);
+                intent.putExtra("threeFixId",threeFix.getId());
+                intent.putExtra("name",threeFix.getTeamGroupName());
+                intent.putExtra("content",threeFix.getContent());
+                intent.putExtra("tracker",threeFix.getFollingPersonName());
+                intent.putExtra("trackeram",threeFix.getFollingTeamName());
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void setView() {

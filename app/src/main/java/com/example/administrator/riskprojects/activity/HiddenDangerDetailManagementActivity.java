@@ -168,6 +168,21 @@ public class HiddenDangerDetailManagementActivity extends BaseActivity {
             }
         });
 
+        findViewById(R.id.btn_record).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HiddenDangerDetailManagementActivity.this, HiddenDangeTrackingDetailListActivity.class);
+                intent.putExtra("threeFixId",record.getId());
+                intent.putExtra("name",record.getTeamGroupName());
+                intent.putExtra("content",record.getContent());
+                intent.putExtra("tracker",record.getFollingPersonName());
+                intent.putExtra("trackeram",record.getFollingTeamName());
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 
     private boolean checkparam(Intent intent) {

@@ -1,5 +1,6 @@
 package com.example.administrator.riskprojects.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -125,6 +126,8 @@ public class HiddenDangerOverdueManagementActivity extends BaseActivity {
                 myAlertDialog.show();
             }
         });
+
+
     }
 
     private void setView() {
@@ -135,7 +138,20 @@ public class HiddenDangerOverdueManagementActivity extends BaseActivity {
     private void initdata(){
         mTxtTitle.setText(R.string.hidden_danger_management);
         Bundle  bundle = getIntent().getBundleExtra("threeBund");
-        ThreeFix threeFix = (ThreeFix) bundle.getSerializable("threeFix");
+        final ThreeFix threeFix = (ThreeFix) bundle.getSerializable("threeFix");
+        findViewById(R.id.btn_record).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HiddenDangerOverdueManagementActivity.this, HiddenDangeTrackingDetailListActivity.class);
+                intent.putExtra("threeFixId",threeFix.getId());
+                intent.putExtra("name",threeFix.getTeamGroupName());
+                intent.putExtra("content",threeFix.getContent());
+                intent.putExtra("tracker",threeFix.getFollingPersonName());
+                intent.putExtra("trackeram",threeFix.getFollingTeamName());
+                startActivity(intent);
+            }
+        });
+
         id = threeFix.getId();
         mTvHiddenContent.setText(threeFix.getContent());
         mTvArea.setText(threeFix.getAreaName());
