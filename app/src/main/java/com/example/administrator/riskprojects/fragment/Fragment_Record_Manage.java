@@ -366,7 +366,7 @@ public class Fragment_Record_Manage extends Fragment implements SwipeRefreshLayo
             paramsMap.put("page", page);
             paramsMap.put("rows", Constants.ROWS);
             paramsMap.put("employeeId", UserUtils.getUserID(getActivity()));
-            if (TextUtils.isEmpty(tvStartDate.getText())) {
+            if (!TextUtils.isEmpty(tvStartDate.getText())) {
                 paramsMap.put("customParamsFour", tvStartDate.getText().toString());
             }
             SelectItem spProfessionItem = (SelectItem) spProfession.getSelectedItem();

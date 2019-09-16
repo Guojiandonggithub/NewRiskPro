@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.riskprojects.R;
@@ -62,7 +60,7 @@ public class HiddenDangeRecordAdapter extends RecyclerView.Adapter {
         ((ViewHolder) holder).name.setText(recordList.get(position).getTeamGroupName().trim());
         ((ViewHolder) holder).time.setText(recordList.get(position).getClassName().replace("点班", ""));
         ((ViewHolder) holder).date.setText(findTime);
-        ((ViewHolder) holder).status.setText("状态待定");
+        ((ViewHolder) holder).status.setText(getStatusByFlag(recordList.get(position).getFlag(),recordList.get(position).getOutTimeFlag()));
         ((ViewHolder) holder).content.setText(recordList.get(position).getContent());
         ((ViewHolder) holder).pics.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
         ((ViewHolder) holder).pics.setAdapter(new ListPicAdapter(recordList.get(position).getPicList()));
@@ -151,6 +149,28 @@ public class HiddenDangeRecordAdapter extends RecyclerView.Adapter {
             llBottom = view.findViewById(R.id.ll_bottom);
             date = view.findViewById(R.id.date);
             status = view.findViewById(R.id.status);
+        }
+    }
+
+    private String getStatusByFlag(String flag,String outTimeFlag) {
+        if ("1".equals(outTimeFlag)) {
+            return "逾期";
+        }
+        switch (flag) {
+            case "0":
+                return "筛选";
+            case "1":
+                return "五定中";
+            case "2":
+                return "整改中";
+            case "3":
+                return "验收中";
+            case "4":
+                return "销项";
+            case "5":
+                return "跟踪";
+            default:
+                return "未知";
         }
     }
 }

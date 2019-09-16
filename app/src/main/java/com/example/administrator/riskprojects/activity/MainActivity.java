@@ -125,8 +125,8 @@ public class MainActivity extends FragmentActivity {
         statisticsfragment = new Fragment_Statistics();
         manageFragment = new Fragment_Record_Manage();
         minefragment = new Fragment_mine();
-        fragments = new Fragment[]{homefragment, supervisionfragment,
-                manageFragment, statisticsfragment, minefragment};
+        fragments = new Fragment[]{homefragment, manageFragment,supervisionfragment
+                , statisticsfragment, minefragment};
         imagebuttons = new ImageView[5];
         txt_title_right = findViewById(R.id.txt_title_right);
         imagebuttons[0] = (ImageView) findViewById(R.id.ib_contact_list);
@@ -152,8 +152,8 @@ public class MainActivity extends FragmentActivity {
         // 添加显示第一个fragment
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, homefragment)
-                .add(R.id.fragment_container, supervisionfragment)
                 .add(R.id.fragment_container, manageFragment)
+                .add(R.id.fragment_container, supervisionfragment)
                 .add(R.id.fragment_container, statisticsfragment)
                 .add(R.id.fragment_container, minefragment)
                 .hide(supervisionfragment).hide(manageFragment)

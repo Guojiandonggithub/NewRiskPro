@@ -110,8 +110,8 @@ public class Fragment_Home extends Fragment {
 
     private void initViews() {
         getHiddenStatisticsNum(UserUtils.getUserID(getActivity()));
-        getRiskStatisticsNum();
-        getEvaluationCount();
+        //getRiskStatisticsNum();
+        //getEvaluationCount();
         getHiddenRecord();
     }
 
@@ -456,7 +456,7 @@ public class Fragment_Home extends Fragment {
         String notRectify = jsonObject.getString("notRectify");
         String outTimeNumber = jsonObject.getString("outTimeNumber");
         String recheck = jsonObject.getString("recheck");
-        String saleNumber = jsonObject.getString("saleNumber");
+        String saleNumber = jsonObject.getString("allNumber");
         mTvUnchangeNum.setText(notRectify);
         mTvWithinTheTimeLimitNum.setText(outTimeNumber);
         mTvForAcceptanceNum.setText(recheck);

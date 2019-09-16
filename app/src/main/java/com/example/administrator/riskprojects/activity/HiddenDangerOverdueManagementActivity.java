@@ -2,7 +2,6 @@ package com.example.administrator.riskprojects.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.administrator.riskprojects.Adpter.ListBigPicAdapter;
-import com.example.administrator.riskprojects.Adpter.PicAdapter;
 import com.example.administrator.riskprojects.BaseActivity;
 import com.example.administrator.riskprojects.R;
 import com.example.administrator.riskprojects.bean.ThreeFix;
@@ -81,10 +79,10 @@ public class HiddenDangerOverdueManagementActivity extends BaseActivity {
         mTxtRight = findViewById(R.id.txt_right);
         mTvHiddenContent = findViewById(R.id.tv_hidden_content);
         mTvArea = findViewById(R.id.tv_area);
-        mTvSpecialty = findViewById(R.id.tv_specialty);
+        //mTvSpecialty = findViewById(R.id.tv_specialty);
         mTvTimeOrOrder = findViewById(R.id.tv_time_or_order);
-        mTvCategory = findViewById(R.id.tv_category);
-        mTvSupervise = findViewById(R.id.tv_supervise);
+        //mTvCategory = findViewById(R.id.tv_category);
+        //mTvSupervise = findViewById(R.id.tv_supervise);
         mTvFinishTime = findViewById(R.id.tv_finish_time);
         mTvDepartment = findViewById(R.id.tv_department);
         mTvMeasure = findViewById(R.id.tv_measure);
@@ -155,19 +153,19 @@ public class HiddenDangerOverdueManagementActivity extends BaseActivity {
         id = threeFix.getId();
         mTvHiddenContent.setText(threeFix.getContent());
         mTvArea.setText(threeFix.getAreaName());
-        mTvSpecialty.setText(threeFix.getSname());
+        //mTvSpecialty.setText(threeFix.getSname());
         String findTimeStr = threeFix.getFindTime();
         String findTime = findTimeStr.substring(0,10);
         mTvTimeOrOrder.setText(findTimeStr);
         ((TextView) findViewById(R.id.time)).setText(threeFix.getClassName().replace("点班", ""));
-        mTvCategory.setText(threeFix.getJbName());
+        //mTvCategory.setText(threeFix.getJbName());
         String isuper = threeFix.getIsupervision();
-        if(TextUtils.isEmpty(isuper)||TextUtils.equals(isuper,"0")){
+        /*if(TextUtils.isEmpty(isuper)||TextUtils.equals(isuper,"0")){
             isuper = "未挂牌";
         }else{
             isuper = "已挂牌";
-        }
-        mTvSupervise.setText(isuper);
+        }*/
+        //mTvSupervise.setText(isuper);
         mTvFinishTime.setText(threeFix.getFixTime());
         mTvDepartment.setText(threeFix.getTeamName());
         mTvMeasure.setText(threeFix.getMeasure());
