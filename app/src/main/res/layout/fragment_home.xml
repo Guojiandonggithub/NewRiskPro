@@ -405,6 +405,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginRight="8dp"
+                    android:visibility="gone"
                     android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
 
             </android.support.v7.widget.LinearLayoutCompat>

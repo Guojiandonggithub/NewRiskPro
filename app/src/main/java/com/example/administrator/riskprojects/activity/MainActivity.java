@@ -125,7 +125,7 @@ public class MainActivity extends FragmentActivity {
         statisticsfragment = new Fragment_Statistics();
         manageFragment = new Fragment_Record_Manage();
         minefragment = new Fragment_mine();
-        fragments = new Fragment[]{homefragment, manageFragment,supervisionfragment
+        fragments = new Fragment[]{homefragment,supervisionfragment, manageFragment
                 , statisticsfragment, minefragment};
         imagebuttons = new ImageView[5];
         txt_title_right = findViewById(R.id.txt_title_right);
@@ -152,8 +152,8 @@ public class MainActivity extends FragmentActivity {
         // 添加显示第一个fragment
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, homefragment)
-                .add(R.id.fragment_container, manageFragment)
                 .add(R.id.fragment_container, supervisionfragment)
+                .add(R.id.fragment_container, manageFragment)
                 .add(R.id.fragment_container, statisticsfragment)
                 .add(R.id.fragment_container, minefragment)
                 .hide(supervisionfragment).hide(manageFragment)
@@ -175,11 +175,12 @@ public class MainActivity extends FragmentActivity {
                 img_right.setVisibility(View.GONE);
                 break;
             case R.id.re_find:
-                index = 1;
+                /*index = 1;
                 txt_title.setText(R.string.guapai);
                 txt_title_right.setVisibility(View.GONE);
                 img_left.setVisibility(View.GONE);
-                img_right.setVisibility(View.GONE);
+                img_right.setVisibility(View.GONE);*/
+                onHomeCerter();
                 break;
             case R.id.analysis:
             case R.id.iv_analysis:
@@ -376,9 +377,10 @@ public class MainActivity extends FragmentActivity {
          index = 2;
          txt_title.setText(manageFragment.getTitle());
          txt_title_right.setVisibility(View.GONE);
-         img_left.setVisibility(manageFragment.getAddVisible());
+         //img_left.setVisibility(manageFragment.getAddVisible());
+         img_left.setVisibility(View.GONE);
          img_right.setVisibility(View.VISIBLE);
-        if (currentTabIndex != index) {
+        if (currentTabIndex !=  index) {
             FragmentTransaction trx = getSupportFragmentManager()
                     .beginTransaction();
             trx.hide(fragments[currentTabIndex]);

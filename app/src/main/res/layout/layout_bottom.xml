@@ -155,7 +155,7 @@
                     android:layout_below="@id/iv_analysis"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="4dp"
-                    android:text="记录"
+                    android:text="添加隐患"
                     android:textColor="@color/colorGraylighter"
                     android:textSize="@dimen/small_ts" />
             </android.support.v7.widget.LinearLayoutCompat>

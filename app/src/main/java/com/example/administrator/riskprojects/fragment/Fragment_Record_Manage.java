@@ -1057,7 +1057,8 @@ public class Fragment_Record_Manage extends Fragment implements SwipeRefreshLayo
         switch (flag) {
             case 0:
             case 1:
-                return View.VISIBLE;
+                //return View.VISIBLE;
+                return View.GONE;
         }
         return View.GONE;
     }
