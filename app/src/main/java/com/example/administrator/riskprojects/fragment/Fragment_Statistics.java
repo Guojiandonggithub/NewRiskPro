@@ -1061,6 +1061,7 @@ public class Fragment_Statistics extends Fragment implements SwipeRefreshLayout.
                 setUpYearSpinner(spYear);
                 llMonth.setVisibility(View.VISIBLE);
                 setUpSpinner(spMonth);
+                getFindHiddenDangerYearChartStatistics(spYear.getSelectedItemPosition(), spMonth.getSelectedItemPosition() + 1);
                 break;
             default:
                 break;

@@ -2,7 +2,6 @@ package com.example.administrator.riskprojects.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -177,6 +176,7 @@ public class HiddenDangerDetailManagementActivity extends BaseActivity {
                 intent.putExtra("content",record.getContent());
                 intent.putExtra("tracker",record.getFollingPersonName());
                 intent.putExtra("trackeram",record.getFollingTeamName());
+                System.out.print("threeFixId222222222222====="+record.getId());
                 startActivity(intent);
             }
         });

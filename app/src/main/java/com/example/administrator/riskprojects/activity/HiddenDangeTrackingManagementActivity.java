@@ -80,6 +80,7 @@ public class HiddenDangeTrackingManagementActivity extends BaseActivity {
                 if("1".equals(userRole)||employee.equals(userid)){
                     Intent intent = new Intent(HiddenDangeTrackingManagementActivity.this, HiddenRiskTrackingAddEditActivity.class);
                     intent.putExtra("threeFixId",threeFix.getId());
+                    System.out.print("threeFix.getId()============"+threeFix.getId());
                     startActivity(intent);
                 }else{
                     Utils.showShortToast(HiddenDangeTrackingManagementActivity.this, "没有添加跟踪记录权限");

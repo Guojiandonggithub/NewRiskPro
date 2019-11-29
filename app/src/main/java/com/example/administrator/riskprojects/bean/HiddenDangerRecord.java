@@ -99,7 +99,8 @@ public class HiddenDangerRecord implements Serializable{
 	private String follingTeamId; // 跟踪人单位id
 	private String follingTeamName; // 跟踪人单位名称
 	private String checkPerson; // 跟踪人单位名称
-	private String imageGroup; // 跟踪人单位名称
+	private String imageGroup; // 图片组
+	private String image; // 图片路径
 	private String offlineDataStatus; // 离线状态
 	private List<String> picList; // 离线隐患图片列表
 
@@ -876,5 +877,11 @@ public class HiddenDangerRecord implements Serializable{
 		return offlineDataStatus;
 	}
 
+	public String getImage() {
+		return image;
+	}
 
+	public void setImage(String image) {
+		this.image = image;
+	}
 }

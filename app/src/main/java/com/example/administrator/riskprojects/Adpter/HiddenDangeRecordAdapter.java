@@ -14,9 +14,11 @@ import android.widget.TextView;
 import com.example.administrator.riskprojects.R;
 import com.example.administrator.riskprojects.activity.HiddenDangerDetailManagementActivity;
 import com.example.administrator.riskprojects.bean.HiddenDangerRecord;
+import com.example.administrator.riskprojects.tools.Constants;
 import com.example.administrator.riskprojects.util.DensityUtil;
 import com.example.administrator.riskprojects.view.MyDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HiddenDangeRecordAdapter extends RecyclerView.Adapter {
@@ -63,7 +65,16 @@ public class HiddenDangeRecordAdapter extends RecyclerView.Adapter {
         ((ViewHolder) holder).status.setText(getStatusByFlag(recordList.get(position).getFlag(),recordList.get(position).getOutTimeFlag()));
         ((ViewHolder) holder).content.setText(recordList.get(position).getContent());
         ((ViewHolder) holder).pics.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        ((ViewHolder) holder).pics.setAdapter(new ListPicAdapter(recordList.get(position).getPicList()));
+        String imagegroup = recordList.get(position).getImage();
+        List<String> imageList = new ArrayList<String>();
+        if(null!=imagegroup&&!imagegroup.equals("")){
+            imagegroup = imagegroup.substring(0,imagegroup.length()-1);
+            String[] imageStr = imagegroup.split(",");
+            for (int i = 0; i < imageStr.length; i++) {
+                imageList.add(Constants.MAIN_ENGINE+"file/"+imageStr[i]);
+            }
+        }
+        ((ViewHolder) holder).pics.setAdapter(new ListPicAdapter(imageList));
         ((ViewHolder) holder).pics.addItemDecoration(new MyDecoration(
                 holder.itemView.getContext()
                 , MyDecoration.HORIZONTAL_LIST, R.color.tranparent, DensityUtil.dip2px(holder.itemView.getContext(),8)));

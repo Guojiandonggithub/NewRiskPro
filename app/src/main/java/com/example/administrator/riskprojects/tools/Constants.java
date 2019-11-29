@@ -26,12 +26,12 @@ public interface Constants {
 	String ISUPERVISION = "1";
 
 	// 链接地址ip (用来测试网络是否连通)
-	String INTENT_IP = "59.49.39.201";
-	String INTENT_PORT = "8188";
+	String INTENT_IP = "192.168.1.186";
+	String INTENT_PORT = "8082";
 
 
 	// 服务器地址
-	String MAIN_ENGINE = "http://59.49.39.201:8188/";
+	String MAIN_ENGINE = "http://192.168.1.186:8082/";
 	//String MAIN_ENGINE = "http://192.168.8.8:8088/";
 	//String MAIN_ENGINE = "http://124.163.206.251:8100/";
 	//String MAIN_ENGINE = "http://1.63.57.10:18370/";

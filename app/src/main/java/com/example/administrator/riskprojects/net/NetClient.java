@@ -33,7 +33,7 @@ public class NetClient {
 	// http 请求
 	private AsyncHttpClient client;
 	// 超时时间
-	private int TIMEOUT = 20000;
+	private int TIMEOUT = 120000;
 
 
 	public NetClient(Context context) {

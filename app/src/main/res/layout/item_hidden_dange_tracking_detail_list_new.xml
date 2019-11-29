@@ -55,11 +55,11 @@
                 android:id="@+id/tv_title_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="28dp"
-                android:text="跟踪人："
+                android:text="隐患内容："
                 android:textColor="@color/date_picker_text_dark"
                 android:textSize="@dimen/normal_ts" />
 
@@ -68,7 +68,8 @@
                 android:layout_height="24dp"
                 android:layout_marginBottom="8dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
 
                 <TextView
@@ -99,8 +100,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_marginBottom="16dp"
+
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
 
                 <TextView

@@ -194,9 +194,16 @@ public class HiddenDangeTrackingDetailListActivity extends BaseActivity implemen
         mImgRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String threeFixId = getIntent().getStringExtra("threeFixId");
+                String name = getIntent().getStringExtra("name");
+                String content = getIntent().getStringExtra("content");
                 Intent intent = new Intent(HiddenDangeTrackingDetailListActivity.this, HiddenRiskTrackingAddEditActivity.class);
-                intent.putExtra("threeFixId",intent.getStringExtra("threeFixId"));
+                intent.putExtra("threeFixId",threeFixId);
+                intent.putExtra("content",content);
+                intent.putExtra("name",name);
+                System.out.print("threeFix.getId()11111============"+threeFixId);
                 startActivity(intent);
+                finish();
             }
         });
     }

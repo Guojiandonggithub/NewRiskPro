@@ -67,7 +67,6 @@ public class HiddenRiskTrackingAddEditActivity extends BaseActivity {
             String follingPersonId = UserUtils.getUserID(HiddenRiskTrackingAddEditActivity.this);
             hiddenFollingRecord = new HiddenFollingRecord(threeFixId,follingPersonId,follingPersonName,"","");
         }
-
         mTvDate.setText(TextUtils.isEmpty(hiddenFollingRecord.getFollingRecordTime()) ? new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(new Date()) : hiddenFollingRecord.getFollingRecordTime());
         mEtContent.setText(TextUtils.isEmpty(hiddenFollingRecord.getFollingRecord()) ? "" : hiddenFollingRecord.getFollingRecord());
         mTxtTitle.setText(TextUtils.isEmpty(hiddenFollingRecord.getFollingRecordId()) ? R.string.add : R.string.modification);
@@ -103,7 +102,7 @@ public class HiddenRiskTrackingAddEditActivity extends BaseActivity {
         RequestParams params = new RequestParams();
         String hiddenFollingRecordStr = JSON.toJSONString(hiddenFollingRecord);
         params.put("follingRecordJsonData",hiddenFollingRecordStr);
-        Utils.showShortToast(HiddenRiskTrackingAddEditActivity.this, flag+params);
+        //Utils.showShortToast(HiddenRiskTrackingAddEditActivity.this, flag+params);
         netClient.post(Data.getInstance().getIp()+flag, params, new BaseJsonRes() {
 
             @Override
@@ -113,6 +112,8 @@ public class HiddenRiskTrackingAddEditActivity extends BaseActivity {
                     Intent intent = new Intent(HiddenRiskTrackingAddEditActivity.this,
                             HiddenDangeTrackingDetailListActivity.class);
                     intent.putExtra("threeFixId", hiddenFollingRecord.getThreeFixId());
+                    intent.putExtra("name", getIntent().getStringExtra("name"));
+                    intent.putExtra("content", getIntent().getStringExtra("content"));
                     Utils.showShortToast(HiddenRiskTrackingAddEditActivity.this, "操作成功!");
                     startActivity(intent);
                     finish();

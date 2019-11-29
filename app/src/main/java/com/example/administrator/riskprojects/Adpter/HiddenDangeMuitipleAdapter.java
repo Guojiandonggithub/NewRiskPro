@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.example.administrator.riskprojects.OnItemClickListener;
 import com.example.administrator.riskprojects.R;
 import com.example.administrator.riskprojects.activity.Data;
@@ -46,6 +47,7 @@ public class HiddenDangeMuitipleAdapter extends RecyclerView.Adapter {
     public static final int FLAG_RECTIFICATION = 3;
     private int flag = FLAG_OVERDUE;
     protected FlippingLoadingDialog mLoadingDialog;
+    List<String> paths =new ArrayList<>();
 
     public void setItemClickListener(OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -77,11 +79,20 @@ public class HiddenDangeMuitipleAdapter extends RecyclerView.Adapter {
         ((ViewHolder) holder).time.setText(threeFixList.get(position).getClassName().replace("点班", ""));
         ((ViewHolder) holder).date.setText(findTime);
         ((ViewHolder) holder).content.setText(threeFixList.get(position).getContent());
-//        ((ViewHolder) holder).pics.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
-//        ((ViewHolder) holder).pics.setAdapter(new ListPicAdapter(recordList.get(position).getPicList()));
-//        ((ViewHolder) holder).pics.addItemDecoration(new MyDecoration(
-//                holder.itemView.getContext()
-//                , MyDecoration.HORIZONTAL_LIST, R.color.tranparent, DensityUtil.dip2px(holder.itemView.getContext(),8)));
+        ((ViewHolder) holder).pics.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        String imagegroup = threeFixList.get(position).getImage();
+        List<String> imageList = new ArrayList<String>();
+        if(null!=imagegroup&&!imagegroup.equals("")){
+            imagegroup = imagegroup.substring(0,imagegroup.length()-1);
+            String[] imageStr = imagegroup.split(",");
+            for (int i = 0; i < imageStr.length; i++) {
+                imageList.add(Constants.MAIN_ENGINE+"file/"+imageStr[i]);
+            }
+        }
+        ((ViewHolder) holder).pics.setAdapter(new ListPicAdapter(imageList));
+        ((ViewHolder) holder).pics.addItemDecoration(new MyDecoration(
+                holder.itemView.getContext()
+                , MyDecoration.HORIZONTAL_LIST, R.color.tranparent, DensityUtil.dip2px(holder.itemView.getContext(),8)));
 
 
 //        ((ViewHolder) holder).tvHiddenContent.setText(threeFixList.get(position).getContent());
@@ -340,6 +351,41 @@ public class HiddenDangeMuitipleAdapter extends RecyclerView.Adapter {
         if (mLoadingDialog == null)
             mLoadingDialog = new FlippingLoadingDialog(context, msg);
         return mLoadingDialog;
+    }
+
+    //查询图片列表
+    private void getPicList(String imageGroup) {
+        Log.i(TAG, "imageGroup: 图片imageGroup=========" + imageGroup);
+        try {
+            if(!TextUtils.isEmpty(imageGroup)){
+                RequestParams params = new RequestParams();
+                params.put("imageGroup",imageGroup);
+                netClient.post(Data.getInstance().getIp() + Constants.GET_PICLIST, params, new BaseJsonRes() {
+
+                    @Override
+                    public void onMySuccess(String data) {
+                        Log.i(TAG, "查询图片组返回数据：" + data);
+                        if (!TextUtils.isEmpty(data)) {
+                            JSONArray jsonArray = JSONArray.parseArray(data);
+
+                            for(int i=0;i<jsonArray.size();i++){
+                                JSONObject job = jsonArray.getJSONObject(i); // 遍历 jsonarray 数组，把每一个对象转成 json 对象
+                                paths.add(Constants.MAIN_ENGINE+"file/"+job.get("imagePath"));
+                            }
+                            Log.e(TAG, "paths================: "+paths);
+                        }
+                    }
+
+                    @Override
+                    public void onMyFailure(String content) {
+                        Log.e(TAG, "查询图片组返回错误信息：" + content);
+                        Utils.showLongToast(context, content);
+                    }
+                });
+            }
+        }catch (Exception e) {
+            Utils.showLongToast(context, e.toString());
+        }
     }
 
 }
